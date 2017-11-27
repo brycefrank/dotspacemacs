@@ -309,11 +309,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
            (eq 2160 (x-display-pixel-height)))
     (setq-default dotspacemacs-default-font '("Source Code Pro" :size 34))
     (setq-default dotspacemacs-default-font '("Source Code Pro" :size 14)))
-<<<<<<< HEAD
-=======
-
-  ;; Prevent spacemacs from trying to load this broken package
->>>>>>> 3834fdbef124f873c854fa21d01e30a7be4c0f3e
   )
 
 (defun dotspacemacs/user-config ()
