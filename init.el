@@ -18,7 +18,7 @@ values."
    ;; lazy install any layer that support lazy installation even the layers
    ;; listed in `dotspacemacs-configuration-layers'. `nil' diparsersabspacemacs custom themele the lazy
    ;; installation feature and you have to explicitly list a layer in the
-   ;; variable `dotspacemacs-configuration-layers' to install it(setq-default dotspacemacs-configuration-layers
+   ;; variable `dotspacemacs-configuration-layers' to iThis library provides easy project management and navigation. The concept of a pnstall it(setq-default dotspacemacs-configuration-layers
    ;; (default 'unused)
    dotspacemacs-enable-lazy-installation 'unused
    ;; If/home/bryce/.emacs.d/layers/+email/mu4e non-nil then Spacemacs will ask for confirmation before installing
@@ -60,7 +60,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(ess-R-object-popup)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -309,6 +309,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
            (eq 2160 (x-display-pixel-height)))
     (setq-default dotspacemacs-default-font '("Source Code Pro" :size 34))
     (setq-default dotspacemacs-default-font '("Source Code Pro" :size 14)))
+<<<<<<< HEAD
+=======
+
+  ;; Prevent spacemacs from trying to load this broken package
+>>>>>>> 3834fdbef124f873c854fa21d01e30a7be4c0f3e
   )
 
 (defun dotspacemacs/user-config ()
@@ -321,6 +326,12 @@ you should place your code here."
   (setq python-shell-interpreter "python3.6")
   (setq python-shell-interpreter-args "")
   (setq org-src-window-setup 'other-window)
+  (setq powerline-default-separator 'arrow)
+
+  ;; Set C-c C-t to open remote todo.org
+  (global-set-key (kbd "C-c C-t")
+                  (lambda () (interactive)
+                  (pop-to-buffer(find-file-noselect "/$SERV:/home/bryce/todo.org"))))
   )
 
 
