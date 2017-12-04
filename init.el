@@ -328,7 +328,7 @@ you should place your code here."
   ;; R SETTINGS
   ;; Add R Markdown to polymode
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
-  ;; FIXME these seeme to be broken
+  ;; FIXME these seeme to be broket n
   ;;(setq ess-fancy-comments nil)
   ;;(setq ess-toggle-underscore nil)
 
