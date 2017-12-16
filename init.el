@@ -312,7 +312,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; Check display dimensions and set appropriate font size.
   (if (and (eq 3840 (x-display-pixel-width))
            (eq 2160 (x-display-pixel-height)))
-    (setq-default dotspacemacs-default-font '("Source Code Pro" :size 34))
+    (setq-default dotspacemacs-default-font '("Noto Mono" :size 34))
     (setq-default dotspacemacs-default-font '("Source Code Pro" :size 14)))
   )
 
@@ -343,10 +343,13 @@ you should place your code here."
   ;; R SETTINGS
   ;; Add R Markdown to polymode
   (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+
   ;; Change annoying ESS underscore and comment behavior back to normal
   (require 'ess-site)
   (ess-toggle-underscore nil)
-  (setq ess-fancy-comments nil)
+  (defun my-ess-settings ()
+    (setq ess-indent-with-fancy-comments nil))
+  (add-hook 'ess-mode-hook #'my-ess-settings)
   (add-hook 'ess-mode-hook
              (lambda () (flycheck-mode t)))
 
@@ -355,8 +358,7 @@ you should place your code here."
   (global-set-key (kbd "C-c C-t")
                   (lambda () (interactive)
                     (pop-to-buffer
-                     (find-file-noselect (format "/ssh:%s:/home/bryce/todo.org" myserv))))
-                  )
+                     (find-file-noselect (format "/ssh:%s:/home/bryce/todo.org" myserv)))))
 
   ;; Enable cursor blink
   (blink-cursor-mode)
