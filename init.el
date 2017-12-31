@@ -19,7 +19,6 @@ values."
    ;; listed in `dotspacemacs-configuration-layers'. `nil' diparsersabspaThis library provides easy project management and navigation. The concept of a pcemacs custom themele the lazy
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to iThis library provides easy project management and navigation. The concept of a pnstall it(
-   htmlsetq-default dotspacemacs-configuration-layers
    ;; (default 'unused)
    dotspacemacs-enable-lazy-installation 'unused
    ;; If/home/bryce/.emacs.d/layers/+email/mu4e non-nil then Spacemacs will ask for confirmation before installing
@@ -39,6 +38,7 @@ values."
      ;; ----------------------------------------------------------------
      ivy
      csv
+     erc
      auto-completion
      better-defaults
      emacs-lisp
@@ -47,11 +47,9 @@ values."
      markdown
      org
      ess
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;; spell-checking
+     search-engine
+     yaml
      syntax-checking
-     ;; version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -133,8 +131,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(occidental
-                         monokai
+   dotspacemacs-themes '(monokai
+                         occidental
                          adwaita
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -353,6 +351,17 @@ you should place your code here."
   (add-hook 'ess-mode-hook
              (lambda () (flycheck-mode t)))
 
+  ;; SEARCH ENGINE SETTINGS
+  ;; set chromium as default browser
+  (setq browse-url-browser-display 'browse-url-generic
+        engine/browser-function 'browse-url-generic
+        browse-url-generic-program "chromium-browser")
+
+  ;; set google search keybinding
+  (global-set-key (kbd "C-c g")
+                  'engine/search-google)
+
+
   ;; Set C-c C-t to open remote todo.org
   ;; FIXME (not technically broken, but I need to change where $SERV is set)
   (global-set-key (kbd "C-c C-t")
@@ -376,7 +385,7 @@ you should place your code here."
  '(org-agenda-files (quote ("~/Documents/todo.org")))
  '(package-selected-packages
    (quote
-    (arjen-grey-theme occidental-theme solarized-theme csv-mode sphinx-doc polymode smeargle orgit mmm-mode markdown-toc markdown-mode magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md evil-magit magit magit-popup git-commit with-editor ess-smart-equals ess-R-data-view ctable ess julia-mode helm-themes helm-swoop helm-projectile helm-mode-manager helm-flx helm-descbinds helm-ag ace-jump-helm-line mu4e-maildirs-extension mu4e-alert ht unfill org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim htmlize gnuplot fuzzy flycheck-pos-tip pos-tip flycheck company-statistics company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic material-theme spaceline-all-the-icons ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
+    (yaml-mode ghub let-alist engine-mode sx helm-pydoc helm-gitignore helm-company helm-c-yasnippet erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks arjen-grey-theme occidental-theme solarized-theme csv-mode sphinx-doc polymode smeargle orgit mmm-mode markdown-toc markdown-mode magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md evil-magit magit magit-popup git-commit with-editor ess-smart-equals ess-R-data-view ctable ess julia-mode helm-themes helm-swoop helm-projectile helm-mode-manager helm-flx helm-descbinds helm-ag ace-jump-helm-line mu4e-maildirs-extension mu4e-alert ht unfill org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim htmlize gnuplot fuzzy flycheck-pos-tip pos-tip flycheck company-statistics company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic material-theme spaceline-all-the-icons ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
